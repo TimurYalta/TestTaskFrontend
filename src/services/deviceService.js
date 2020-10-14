@@ -39,7 +39,7 @@ export async function getDeviceCommandHistory(id) {
 
 export async function sendCommand(id, command) {
   try {
-    const request = await axios.post(API_ADDRESS + '/commands/send/' + id, { command })
+    await axios.post(API_ADDRESS + '/commands/send/' + id, { command })
     return Promise.resolve()
   } catch (err) {
     return Promise.reject()
@@ -57,7 +57,7 @@ export async function getTypes() {
 
 export async function createDevice(data) {
   try {
-    const request = await axios.post(API_ADDRESS + '/devices/create/', data)
+    await axios.post(API_ADDRESS + '/devices/create/', data)
     return Promise.resolve()
   } catch (err) {
     return Promise.reject()
@@ -66,7 +66,7 @@ export async function createDevice(data) {
 
 export async function removeDevice(id) {
   try {
-    const request = await axios.get(API_ADDRESS + '/devices/remove/' + id)
+    await axios.get(API_ADDRESS + '/devices/remove/' + id)
     return Promise.resolve()
   } catch (err) {
     return Promise.reject()
@@ -75,7 +75,7 @@ export async function removeDevice(id) {
 
 export async function createType(type, name) {
   try {
-    const request = await axios.post(API_ADDRESS + '/types/create/', { type, name })
+    await axios.post(API_ADDRESS + '/types/create/', { type, name })
     return Promise.resolve()
   } catch (err) {
     return Promise.reject()

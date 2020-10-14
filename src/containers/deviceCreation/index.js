@@ -67,9 +67,6 @@ class DeviceCreationForm extends React.Component {
         <select defaultValue={this.props.types[0]} onChange={this.onChange('type')}>
           {this.props.types.map(
             (el, i) => {
-              if (i == 0) {
-                return <option key={i} value={el.type}>{el.name}</option>
-              }
               return <option key={i} value={el.type}>{el.name}</option>
             }
           )}
