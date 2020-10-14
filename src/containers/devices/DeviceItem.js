@@ -1,32 +1,26 @@
-import React from 'react'
+import React from 'react';
+import './styles.css';
 
-const style = {
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'space-between'
-}
 
 const DeviceItem = (props) => {
-
-  return <div style={style}>
+  return <div className={'deviceItem'}>
     <div>{props.name}</div>
     <div>{props.type}</div>
     <div>{props.ip}</div>
     <div>{props.port}</div>
     <div>
       <button onClick={() => {
-        props.editItem(props.id)
+        props.editItem(props.id);
       }}>
         Info
       </button>
       <button onClick={() => {
-        props.deleteItem(props.id)
+        props.deleteItem(props.id);
       }}>
         Delete
       </button>
     </div>
-  </div>
-}
+  </div>;
+};
 
-
-export default DeviceItem
+export default DeviceItem;

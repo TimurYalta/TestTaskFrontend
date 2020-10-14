@@ -1,99 +1,104 @@
-import React from 'react'
-import { push } from 'connected-react-router'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
+import React from 'react';
+import {push} from 'connected-react-router';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
 import {
   clearChosen,
   loadDeviceData,
   sendCommandToDevice
-} from '../../modules/deviceStorage/deviceActions'
-import SendCommandForm from './SendCommandForm'
-import CommandHistory from './CommandHistory'
+} from '../../modules/deviceStorage/deviceActions';
+import SendCommandForm from './SendCommandForm';
+import CommandHistory from './CommandHistory';
+import './styles.css';
 
 class DeviceInfo extends React.Component {
-
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       commandMode: false
-    }
+    };
   }
 
   componentDidMount() {
-    this.props.loadDeviceData(this.props.id)
+    this.props.loadDeviceData(this.props.id);
   }
 
   submitCommand = (command) => {
-    this.props.sendCommandToDevice(this.props.id, command)
-    this.setState({ commandMode: false })
+    this.props.sendCommandToDevice(this.props.id, command);
+    this.setState({commandMode: false});
   }
 
   render() {
-    const { props } = this
-    return (<div>
-      <h1>{`Device ${props.device.name} info`}</h1>
-      <h2>General info</h2>
-      <div>{`Name: `}<b>{props.device.name}</b></div>
-      <div>{`Device type:`}<b>{props.device.type}</b></div>
-      <div>{`IP address: `}<b>{props.device.ip}</b></div>
-      <div>{`Port: `}<b>{props.device.port}</b></div>
-      {props.chosenDeviceState && <div>
-        <h2>{`State:`}</h2>
-        <table>
-          <thead>
-          <tr>
-            <th>Online</th>
-            <th>Status</th>
-            <th>Last error</th>
-            <th>Last updated</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td>{props.chosenDeviceState.online}</td>
-            <td>{props.chosenDeviceState.status}</td>
-            <td>{props.chosenDeviceState.last_error}</td>
-            <td>{props.chosenDeviceState.last_sync_date}</td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-      }
-      {props.chosenDeviceCommandHistory.length > 0 &&
-      <CommandHistory
-        submitCommand={this.submitCommand}
-        commandHistory={props.chosenDeviceCommandHistory}
-      />
-      }
-      <div>
-        {!this.state.commandMode &&
-        <button
-          onClick={() => this.setState({ commandMode: true })}
-        >
-          Send command to the device
-        </button>
-        }
+    const {props} = this;
+    return (<div className={'deviceInfoContainer'}>
 
-        {this.state.commandMode &&
-        <SendCommandForm
-          submitCommand={this.submitCommand}
-          cancelCommand={() => {
-            this.setState({ commandMode: false })
-          }}
-        />}
+      <div>
+        <h1>{`Device ${props.device.name} info`}</h1>
+        <h2>General info</h2>
+        <div>{`Name: `}<b>{props.device.name}</b></div>
+        <div>{`Device type:`}<b>{props.device.type}</b></div>
+        <div>{`IP address: `}<b>{props.device.ip}</b></div>
+        <div>{`Port: `}<b>{props.device.port}</b></div>
       </div>
-    </div>)
+      <div>
+        {props.chosenDeviceState && <div>
+          <h2>{`State:`}</h2>
+          <table className={'stateTable'}>
+            <thead>
+              <tr>
+                <th>Online</th>
+                <th>Status</th>
+                <th>Last error</th>
+                <th>Last updated</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{(!!props.chosenDeviceState.online).toString()}</td>
+                <td>{props.chosenDeviceState.status}</td>
+                <td>{props.chosenDeviceState.last_error}</td>
+                <td>{props.chosenDeviceState.last_sync_date}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        }
+        {props.chosenDeviceCommandHistory.length > 0 &&
+          <CommandHistory
+            submitCommand={this.submitCommand}
+            commandHistory={props.chosenDeviceCommandHistory}
+          />
+        }
+        <div>
+          {!this.state.commandMode &&
+            <button
+              onClick={() => this.setState({commandMode: true})}
+            >
+              Send command to the device
+            </button>
+          }
+
+          {this.state.commandMode &&
+            <SendCommandForm
+              submitCommand={this.submitCommand}
+              cancelCommand={() => {
+                this.setState({commandMode: false});
+              }}
+            />}
+        </div>
+      </div>
+    </div>);
   }
 }
 
-const mapStateToProps = ({ devices }) => ({
+const mapStateToProps = ({devices}) => ({
   id: devices.id,
   device: devices.chosenDevice,
   chosenDeviceState: devices.chosenDeviceState,
   chosenDeviceCommandHistory: devices.chosenDeviceCommandHistory
-})
+});
 
-const mapDispatchToProps = dispatch =>
+const mapDispatchToProps = (dispatch) =>
   bindActionCreators(
     {
       clearChosen,
@@ -102,11 +107,11 @@ const mapDispatchToProps = dispatch =>
       goToDevice: () => push('/device_info')
     },
     dispatch
-  )
+  );
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(DeviceInfo)
+)(DeviceInfo);
 
 

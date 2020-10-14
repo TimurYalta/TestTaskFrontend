@@ -14,3 +14,19 @@ body {
 button:disabled {
   opacity: 0.5;
 }
+
+.container{
+  margin: auto;
+  width: 70%;
+  background-color: lightgray;
+}
+
+.header{
+  width:20%;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+}
+.header * {
+  flex:1;
+}

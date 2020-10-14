@@ -1,13 +1,14 @@
-import React from 'react'
-import { Route, Link } from 'react-router-dom'
-import { routes } from '../../constants'
-import Devices from '../devices'
-import DeviceInfo from '../deviceInfo'
-import DeviceCreationForm from '../deviceCreation'
+import React from 'react';
+import {Route, Link} from 'react-router-dom';
+import {routes} from '../../constants';
+import Devices from '../devices';
+import DeviceInfo from '../deviceInfo';
+import DeviceCreationForm from '../deviceCreation';
+import '../../index.css';
 
 const App = () => (
   <div>
-    <header>
+    <header className={'header'}>
       <Link to={routes.ADD_DEVICE}>Add device</Link>
       <Link to={routes.DEVICE_LIST}>Devices</Link>
     </header>
@@ -17,6 +18,6 @@ const App = () => (
       <Route exact path={routes.DEVICE_INFO} component={DeviceInfo}/>
     </main>
   </div>
-)
+);
 
-export default App
+export default App;
