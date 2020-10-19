@@ -15,6 +15,10 @@ import {
   SET_LOADING
 } from './deviceActionTypes';
 
+/**
+ * TODO: REFACTOR WITH ASYNC/AWAIT
+ */
+
 export const deleteDevice = (id) => {
   return (dispatch) => {
     dispatch({
